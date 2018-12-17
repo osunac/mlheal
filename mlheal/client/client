@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Simulate a client using the app. This will help build data points for
+# machine learning
+
+while true; do
+    curl --silent --show-error http://app:8080/ > /dev/null
+    sleep 1
+done

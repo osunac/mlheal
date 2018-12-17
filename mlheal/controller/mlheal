@@ -1,0 +1,43 @@
+#!/bin/sh
+# Docker server for other Docker containers
+#
+# - send a container logs to a file
+# - restart container when there is an incoming TCP connexion
+
+# ---------------------------------------------------------------------
+# Hard-coded configuration
+
+# Container to be monitored
+container="mlheal_app_1"
+
+# Log file
+log="/var/log/app.log"
+
+# Port for incoming connexions
+port=8079
+
+# End of configuration
+# ---------------------------------------------------------------------
+
+set -e
+
+# serve PORT
+# Restart container when a connexion is established on a TCP port
+serve() {
+     nc -n -lk -p "$1" -e docker restart "$container"
+}
+
+# docker_logs CONTAINER FILE
+# Write a container logs to a file
+docker_logs() {
+    >"$2"
+    while true; do
+        # command interrupted when container is restarted
+        docker logs -f "$1" > "$2" 2>&1
+        sleep 1
+    done
+}
+
+serve "$port" &
+docker_logs "$container" "$log" &
+wait
