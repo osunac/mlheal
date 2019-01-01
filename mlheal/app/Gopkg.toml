@@ -23,4 +23,4 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/gleicon/go-httplogger"
+  name = "github.com/osunac/go-httplogger"

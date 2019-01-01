@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	httplogger "github.com/gleicon/go-httplogger"
+	httplogger "github.com/osunac/go-httplogger"
 )
 
 var isBroken = false
